@@ -14,6 +14,7 @@ export const ClockContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 20px;
   }
 `;
 
@@ -25,6 +26,7 @@ export const TimePeriodsContainer = styled.div`
     border: none;
     background-color: unset;
     font-size: 15px;
+    color: white;
     &:focus {
       background: #f6f1f13d;
     }
@@ -43,11 +45,8 @@ export const MainButtonContainer = styled.div`
   & button {
     cursor: pointer;
     border: medium none;
-    /* margin: 20px 0px 0px;
-  padding: 0px 12px; */
     border-radius: 4px;
     box-shadow: rgb(235, 235, 235) 0px 6px 0px;
-    /* font-family: ArialRounded; */
     font-size: 22px;
     height: 55px;
     color: rgb(186, 73, 73);

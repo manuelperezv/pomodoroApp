@@ -41,7 +41,6 @@ const ClockComponent = () => {
     }
     setTimerOn(!timerOn);
   };
-  console.log(displayTime, 'displayTime ....');
 
   const setBackgroundColor = () => {
     if (displayTime <= 300) {
