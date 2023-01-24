@@ -5,7 +5,7 @@ export interface ClockComponentProps {
   displayTime: number;
 }
 const ClockComponent = () => {
-  const [displayTime, setDisplayTime] = useState(0);
+  const [displayTime, setDisplayTime] = useState(25 * 60);
   const [timerOn, setTimerOn] = useState(false);
   const [onBreak, setOnBreak] = useState(false);
 
