@@ -33,11 +33,10 @@ const ClockComponent = () => {
     //
   }, [displayTime]);
 
-  const handleClock = (event: MouseEventHandler<HTMLButtonElement>) => {
+  const handleClock = () => {
     let second = 1000;
     let date = new Date().getTime();
     let nexDate = new Date().getTime() + second;
-    let onBreakVariable = onBreak;
 
     if (!timerOn) {
       let interval = setInterval(() => {
@@ -57,7 +56,6 @@ const ClockComponent = () => {
     }
     setTimerOn(!timerOn);
   };
-  console.log(getRef, 'get reference ');
 
   const handleReset = () => {
     if (sessionDuration.short) {
@@ -77,13 +75,8 @@ const ClockComponent = () => {
     }
   };
 
-  const handleTimePeriodsClick = (timePeriod: any) => {
-    setDisplayTime(timePeriod);
-  };
-
   const progressBarValue = displayTime <= 300 ? 5 : displayTime === 900 ? 15 : 25;
 
-  console.log(displayTime);
   return (
     <ClockContainer
       style={{
