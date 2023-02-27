@@ -1,13 +1,25 @@
-import React, { MouseEventHandler, useEffect, useState } from 'react';
-import { ClockContainer, FormattedTime, TimePeriodsContainer, MainButtonContainer } from './styles';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import {
+  ClockContainer,
+  FormattedTime,
+  TimePeriodsContainer,
+  MainButtonContainer,
+  ProgressContainer,
+} from './styles';
 
 export interface ClockComponentProps {
   displayTime: number;
 }
 const ClockComponent = () => {
   const [displayTime, setDisplayTime] = useState(25 * 60);
+  const [sessionDuration, setSessionDuration] = useState({
+    short: 5 * 60,
+    medium: 15 * 60,
+    large: 25 * 60,
+  });
   const [timerOn, setTimerOn] = useState(false);
   const [onBreak, setOnBreak] = useState(false);
+  const getRef = useRef(null);
 
   const formatHours = (time: any) => {
     let minutes: number = Math.floor(time / 60);
@@ -17,7 +29,11 @@ const ClockComponent = () => {
     );
   };
 
-  const handleClock = (e: MouseEventHandler<HTMLButtonElement>) => {
+  useEffect(() => {
+    //
+  }, [displayTime]);
+
+  const handleClock = (event: MouseEventHandler<HTMLButtonElement>) => {
     let second = 1000;
     let date = new Date().getTime();
     let nexDate = new Date().getTime() + second;
@@ -41,6 +57,15 @@ const ClockComponent = () => {
     }
     setTimerOn(!timerOn);
   };
+  console.log(getRef, 'get reference ');
+
+  const handleReset = () => {
+    if (sessionDuration.short) {
+      //   setTimerOn(!timerOn);
+      setDisplayTime(sessionDuration.short);
+      //   getRef.current.load();
+    }
+  };
 
   const setBackgroundColor = () => {
     if (displayTime <= 300) {
@@ -52,6 +77,13 @@ const ClockComponent = () => {
     }
   };
 
+  const handleTimePeriodsClick = (timePeriod: any) => {
+    setDisplayTime(timePeriod);
+  };
+
+  const progressBarValue = displayTime <= 300 ? 5 : displayTime === 900 ? 15 : 25;
+
+  console.log(displayTime);
   return (
     <ClockContainer
       style={{
@@ -61,22 +93,35 @@ const ClockComponent = () => {
       <div
         className='clockContainer__container'
         style={{
-          backgroundColor: setBackgroundColor(),
+          backgroundColor: 'transparent',
         }}
       >
+        <ProgressContainer value={displayTime / 60} max={progressBarValue}>
+          {displayTime}
+        </ProgressContainer>
+
         <TimePeriodsContainer>
-          <button onClick={() => setDisplayTime(25 * 60)}>Pomodoro</button>
-          <button className='timePeriodsContainer__buttons' onClick={() => setDisplayTime(15 * 60)}>
+          <button onClick={() => setDisplayTime(sessionDuration.large)}>Pomodoro</button>
+          <button
+            className='timePeriodsContainer__buttons'
+            onClick={() => setDisplayTime(sessionDuration.short)}
+          >
             Short Break
           </button>
-          <button className='timePeriodsContainer__buttons' onClick={() => setDisplayTime(5 * 60)}>
+          <button
+            className='timePeriodsContainer__buttons'
+            onClick={() => setDisplayTime(sessionDuration.medium)}
+          >
             Long Break
           </button>
         </TimePeriodsContainer>
-        <FormattedTime>{formatHours(displayTime)}</FormattedTime>
+        <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
         <MainButtonContainer>
           <button onClick={handleClock} className='MainButtonContainer__button'>
             {!timerOn ? 'Play' : 'Pause'}
+          </button>
+          <button onClick={handleReset} className='MainButtonContainer__button'>
+            Reset
           </button>
         </MainButtonContainer>
       </div>
