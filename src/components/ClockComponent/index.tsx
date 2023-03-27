@@ -58,11 +58,7 @@ const ClockComponent = () => {
   };
 
   const handleReset = () => {
-    if (sessionDuration.short) {
-      //   setTimerOn(!timerOn);
-      setDisplayTime(sessionDuration.short);
-      //   getRef.current.load();
-    }
+    // handleClock();
   };
 
   const setBackgroundColor = () => {
@@ -77,33 +73,34 @@ const ClockComponent = () => {
 
   const progressBarValue = displayTime <= 300 ? 5 : displayTime === 900 ? 15 : 25;
 
+  const handleSessionDuration = (sessionLength: number) => {
+    setDisplayTime(sessionLength);
+    clearInterval(localStorage.getItem('interval-id') as any);
+    setTimerOn(false);
+  };
+
   return (
     <ClockContainer
       style={{
-        backgroundColor: setBackgroundColor(),
+        backgroundColor: setBackgroundColor()
       }}
     >
-      <div
-        className='clockContainer__container'
-        style={{
-          backgroundColor: 'transparent',
-        }}
-      >
+      <div className='clockContainer__container'>
         <ProgressContainer value={displayTime / 60} max={progressBarValue}>
           {displayTime}
         </ProgressContainer>
 
         <TimePeriodsContainer>
-          <button onClick={() => setDisplayTime(sessionDuration.large)}>Pomodoro</button>
+          <button onClick={() => handleSessionDuration(sessionDuration.large)}>Pomodoro</button>
           <button
             className='timePeriodsContainer__buttons'
-            onClick={() => setDisplayTime(sessionDuration.short)}
+            onClick={() => handleSessionDuration(sessionDuration.short)}
           >
             Short Break
           </button>
           <button
             className='timePeriodsContainer__buttons'
-            onClick={() => setDisplayTime(sessionDuration.medium)}
+            onClick={() => handleSessionDuration(sessionDuration.medium)}
           >
             Long Break
           </button>

@@ -9,7 +9,7 @@ export const ClockContainer = styled.div`
   height: 100vh;
   padding-top: 70px;
   & .clockContainer__container {
-    box-shadow: 1px 2px 2px 4px;
+    background-color: rgba(255, 255, 255, 0.1);
     height: 450px;
     display: flex;
     flex-direction: column;
