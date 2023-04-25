@@ -9,7 +9,7 @@ export const ClockContainer = styled.div`
   height: 100vh;
   padding-top: 70px;
   & .clockContainer__container {
-    box-shadow: 1px 2px 2px 4px;
+    background-color: rgba(255, 255, 255, 0.1);
     height: 450px;
     display: flex;
     flex-direction: column;
@@ -36,16 +36,19 @@ export const TimePeriodsContainer = styled.div`
 export const FormattedTime = styled.span`
   color: #fff;
   font-size: 7rem;
-  padding: 4rem 6rem;
+  padding: 1rem 6rem;
 `;
 
 export const MainButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   & button {
     cursor: pointer;
     border: medium none;
     border-radius: 4px;
+    margin: 10px;
     box-shadow: rgb(235, 235, 235) 0px 6px 0px;
     font-size: 22px;
     height: 55px;
@@ -55,4 +58,10 @@ export const MainButtonContainer = styled.div`
     background-color: white;
     transition: color 0.5s ease-in-out 0s;
   }
+`;
+
+export const ProgressContainer = styled.progress`
+  margin: 0 auto;
+  padding: 20px;
+  margin-bottom: 30px;
 `;
