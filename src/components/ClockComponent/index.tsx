@@ -10,17 +10,23 @@ import {
 export interface ClockComponentProps {
   displayTime: number;
 }
+
+interface TimePeriodDurationProp {
+  short: number;
+  medium: number;
+  large: number;
+}
 const ClockComponent = () => {
-  const [displayTime, setDisplayTime] = useState(25 * 60);
-  const [sessionDuration, setSessionDuration] = useState({
+  const [displayTime, setDisplayTime] = useState(0);
+  const [sessionDuration, setSessionDuration] = useState<TimePeriodDurationProp>({
     short: 5 * 60,
     medium: 15 * 60,
-    large: 25 * 60,
+    large: 25 * 60
   });
   const [timerOn, setTimerOn] = useState(false);
-  const [onBreak, setOnBreak] = useState(false);
   const getRef = useRef(null);
-
+  const [intervalTimerId, setIntervalTimerId] = useState<any>();
+  const [getCurrentSession, setCurrentSession] = useState('');
   const formatHours = (time: any) => {
     let minutes: number = Math.floor(time / 60);
     let seconds: number = time % 60;
@@ -29,8 +35,28 @@ const ClockComponent = () => {
     );
   };
 
+  const handleSessionDuration = (sessionLength: number) => {
+    setDisplayTime(sessionLength);
+    clearInterval(intervalTimerId);
+    setTimerOn(false);
+  };
+
   useEffect(() => {
-    //
+    clearInterval(intervalTimerId);
+    setDisplayTime(25 * 60);
+  }, []);
+
+  useEffect(() => {
+    if (displayTime === 300) {
+      setCurrentSession('short');
+    } else if (displayTime === 900) {
+      setCurrentSession('medium');
+    } else if (displayTime === 1500) {
+      setCurrentSession('large');
+    }
+    if (displayTime <= 0) {
+      clearInterval(intervalTimerId);
+    }
   }, [displayTime]);
 
   const handleClock = () => {
@@ -48,17 +74,24 @@ const ClockComponent = () => {
           nexDate += second;
         }
       }, 30);
-      localStorage.clear();
-      localStorage.setItem('interval-id', interval as any);
+      setIntervalTimerId(interval);
     }
     if (timerOn) {
-      clearInterval(localStorage.getItem('interval-id') as any);
+      clearInterval(intervalTimerId);
     }
     setTimerOn(!timerOn);
   };
 
   const handleReset = () => {
-    // handleClock();
+    if (getCurrentSession === 'short') {
+      setDisplayTime(sessionDuration.short);
+    } else if (getCurrentSession === 'medium') {
+      setDisplayTime(sessionDuration.medium);
+    } else if (getCurrentSession === 'large') {
+      setDisplayTime(sessionDuration.large);
+    }
+    clearInterval(intervalTimerId);
+    setTimerOn(false);
   };
 
   const setBackgroundColor = () => {
@@ -71,13 +104,7 @@ const ClockComponent = () => {
     }
   };
 
-  const progressBarValue = displayTime <= 300 ? 5 : displayTime === 900 ? 15 : 25;
-
-  const handleSessionDuration = (sessionLength: number) => {
-    setDisplayTime(sessionLength);
-    clearInterval(localStorage.getItem('interval-id') as any);
-    setTimerOn(false);
-  };
+  const progressBarValue = displayTime <= 300 ? 5 : displayTime <= 900 ? 15 : 25;
 
   return (
     <ClockContainer
