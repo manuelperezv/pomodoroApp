@@ -1,5 +1,10 @@
 import styled from '@emotion/styled';
 
+export const MainComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const ClockContainer = styled.div`
   margin-top: 40px;
   width: 100%;
@@ -64,4 +69,21 @@ export const ProgressContainer = styled.progress`
   margin: 0 auto;
   padding: 20px;
   margin-bottom: 30px;
+`;
+
+export const StyledAddNewTaskButton = styled.button`
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 40px 0 0 0;
+  height: 4rem;
+  font-size: 25px;
+  width: 100%;
+  color: white;
+  transition: background-color 0.5s ease-in-out 0s;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  &:hover {
+    background-color: rgba(36, 35, 35, 0.1);
+    border: 'solid 2px red !important';
+  }
 `;

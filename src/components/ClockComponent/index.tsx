@@ -1,12 +1,17 @@
-import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ClockContainer,
   FormattedTime,
   TimePeriodsContainer,
-  MainButtonContainer,
   ProgressContainer,
+  MainComponent,
+  StyledAddNewTaskButton,
 } from './styles';
-
+// import { useAppDispatch } from '../../store/store';
+import MainButtonComponent from '../MainButtonComponent/MainButtonComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { SelectClockState, addTask } from '../../store/ClockComponentStore';
+import NewTask from '../NewTask';
 export interface ClockComponentProps {
   displayTime: number;
 }
@@ -21,7 +26,7 @@ const ClockComponent = () => {
   const [sessionDuration, setSessionDuration] = useState<TimePeriodDurationProp>({
     short: 5 * 60,
     medium: 15 * 60,
-    large: 25 * 60
+    large: 25 * 60,
   });
   const [timerOn, setTimerOn] = useState(false);
   const getRef = useRef(null);
@@ -34,6 +39,13 @@ const ClockComponent = () => {
       (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds)
     );
   };
+
+  /// redux
+
+  const clockState = useSelector(SelectClockState);
+  console.log('🚀 ~ file: index.tsx:44 ~ ClockComponent ~ clockState:', clockState);
+
+  const dispatch = useDispatch();
 
   const handleSessionDuration = (sessionLength: number) => {
     setDisplayTime(sessionLength);
@@ -100,48 +112,59 @@ const ClockComponent = () => {
     } else if (displayTime >= 300 && displayTime <= 900) {
       return '#2D5D84';
     } else if (displayTime >= 900 && displayTime <= 1500) {
-      return '#c72437';
+      return '#ba4949';
     }
   };
 
   const progressBarValue = displayTime <= 300 ? 5 : displayTime <= 900 ? 15 : 25;
-
   return (
     <ClockContainer
       style={{
-        backgroundColor: setBackgroundColor()
+        backgroundColor: setBackgroundColor(),
       }}
     >
-      <div className='clockContainer__container'>
-        <ProgressContainer value={displayTime / 60} max={progressBarValue}>
-          {displayTime}
-        </ProgressContainer>
-
-        <TimePeriodsContainer>
-          <button onClick={() => handleSessionDuration(sessionDuration.large)}>Pomodoro</button>
-          <button
-            className='timePeriodsContainer__buttons'
-            onClick={() => handleSessionDuration(sessionDuration.short)}
-          >
-            Short Break
-          </button>
-          <button
-            className='timePeriodsContainer__buttons'
-            onClick={() => handleSessionDuration(sessionDuration.medium)}
-          >
-            Long Break
-          </button>
-        </TimePeriodsContainer>
-        <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
-        <MainButtonContainer>
+      <MainComponent>
+        <div className="clockContainer__container">
+          <ProgressContainer value={displayTime / 60} max={progressBarValue}>
+            {displayTime}
+          </ProgressContainer>
+          <TimePeriodsContainer>
+            <button onClick={() => handleSessionDuration(sessionDuration.large)}>Pomodoro</button>
+            <button
+              className="timePeriodsContainer__buttons"
+              onClick={() => handleSessionDuration(sessionDuration.short)}
+            >
+              Short Break
+            </button>
+            <button
+              className="timePeriodsContainer__buttons"
+              onClick={() => handleSessionDuration(sessionDuration.medium)}
+            >
+              Long Break
+            </button>
+          </TimePeriodsContainer>
+          <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
+          {/* <MainButtonContainer>
           <button onClick={handleClock} className='MainButtonContainer__button'>
-            {!timerOn ? 'Play' : 'Pause'}
+          {!timerOn ? 'Play' : 'Pause'}
           </button>
           <button onClick={handleReset} className='MainButtonContainer__button'>
-            Reset
+          Reset
           </button>
-        </MainButtonContainer>
-      </div>
+        </MainButtonContainer> */}
+          <MainButtonComponent
+            handleReset={handleClock}
+            styles="MainButtonContainer__button"
+            timerOn={timerOn}
+          />
+        </div>
+        <div>
+          <StyledAddNewTaskButton className="addTaskButton">
+            + <span style={{ fontSize: '17px' }}>agregar tarea</span>
+          </StyledAddNewTaskButton>
+        </div>
+        {/* <NewTask /> */}
+      </MainComponent>
     </ClockContainer>
   );
 };
