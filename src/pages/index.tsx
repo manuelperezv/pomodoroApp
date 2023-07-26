@@ -1,5 +1,5 @@
-import ClockComponent from "../src/components/ClockComponent";
-import styles from "../styles/Home.module.css";
+import ClockComponent from '../components/ClockComponent';
+import styles from '../../styles/Home.module.css';
 
 export default function Home() {
   return (
@@ -9,3 +9,4 @@ export default function Home() {
     </div>
   );
 }
+
