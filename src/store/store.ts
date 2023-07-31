@@ -17,7 +17,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unkn
 // import { RootState } from './store';
 
 export const wrapper = createWrapper<AppStore>(store);
-// export const useAppDispatch: () => typeof store = useDispatch;
+export const useAppDispatch = () => useDispatch;
 
 // export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
 
