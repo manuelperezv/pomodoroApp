@@ -10,8 +10,15 @@ import {
 // import { useAppDispatch } from '../../store/store';
 import MainButtonComponent from '../MainButtonComponent/MainButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
-import { SelectClockState, addTask } from '../../store/ClockComponentStore';
+import {
+  PhaseCounterState,
+  SelectClockState,
+  StatePhases,
+  addTask,
+  changeStep,
+} from '../../store/ClockComponentStore';
 import NewTask from '../NewTask';
+import CompletedTask from '../CompletedTask/index';
 export interface ClockComponentProps {
   displayTime: number;
 }
@@ -32,6 +39,7 @@ const ClockComponent = () => {
   const getRef = useRef(null);
   const [intervalTimerId, setIntervalTimerId] = useState<any>();
   const [getCurrentSession, setCurrentSession] = useState('');
+  const [currentPhaseState, setCurrentPhaseState] = useState('');
   const formatHours = (time: any) => {
     let minutes: number = Math.floor(time / 60);
     let seconds: number = time % 60;
@@ -43,6 +51,8 @@ const ClockComponent = () => {
   /// redux
 
   const clockState = useSelector(SelectClockState);
+  const phaseState = useSelector(PhaseCounterState);
+  console.log('🚀 ~ file: index.tsx:47 ~ ClockComponent ~ phaseState:', phaseState);
   console.log('🚀 ~ file: index.tsx:44 ~ ClockComponent ~ clockState:', clockState);
 
   const dispatch = useDispatch();
@@ -117,6 +127,11 @@ const ClockComponent = () => {
   };
 
   const progressBarValue = displayTime <= 300 ? 5 : displayTime <= 900 ? 15 : 25;
+
+  useEffect(() => {
+    setCurrentPhaseState(phaseState);
+  }, [phaseState]);
+
   return (
     <ClockContainer
       style={{
@@ -144,26 +159,26 @@ const ClockComponent = () => {
             </button>
           </TimePeriodsContainer>
           <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
-          {/* <MainButtonContainer>
-          <button onClick={handleClock} className='MainButtonContainer__button'>
-          {!timerOn ? 'Play' : 'Pause'}
-          </button>
-          <button onClick={handleReset} className='MainButtonContainer__button'>
-          Reset
-          </button>
-        </MainButtonContainer> */}
           <MainButtonComponent
             handleReset={handleClock}
             styles="MainButtonContainer__button"
             timerOn={timerOn}
           />
         </div>
+        {phaseState === 'editing' && <NewTask />}
+        {phaseState === 'done' && <CompletedTask />}
         <div>
-          <StyledAddNewTaskButton className="addTaskButton">
-            + <span style={{ fontSize: '17px' }}>agregar tarea</span>
-          </StyledAddNewTaskButton>
+          {currentPhaseState === StatePhases.editing ||
+            (StatePhases.done && (
+              <StyledAddNewTaskButton
+                className="addTaskButton"
+                // onClick={() => dispatch(addTask((<NewTask />) as any))}
+                onClick={() => dispatch(changeStep('editing' as any))}
+              >
+                + <span style={{ fontSize: '17px' }}>agregar tarea</span>
+              </StyledAddNewTaskButton>
+            ))}
         </div>
-        {/* <NewTask /> */}
       </MainComponent>
     </ClockContainer>
   );
