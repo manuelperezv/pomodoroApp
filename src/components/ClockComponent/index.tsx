@@ -52,8 +52,6 @@ const ClockComponent = () => {
 
   const clockState = useSelector(SelectClockState);
   const phaseState = useSelector(PhaseCounterState);
-  console.log('🚀 ~ file: index.tsx:47 ~ ClockComponent ~ phaseState:', phaseState);
-  console.log('🚀 ~ file: index.tsx:44 ~ ClockComponent ~ clockState:', clockState);
 
   const dispatch = useDispatch();
 
@@ -172,7 +170,6 @@ const ClockComponent = () => {
             (StatePhases.done && (
               <StyledAddNewTaskButton
                 className="addTaskButton"
-                // onClick={() => dispatch(addTask((<NewTask />) as any))}
                 onClick={() => dispatch(changeStep('editing' as any))}
               >
                 + <span style={{ fontSize: '17px' }}>agregar tarea</span>
