@@ -1,6 +1,7 @@
 export interface ButtonComponentProps {
-  handleReset: () => void;
+  handleClock: () => void;
   timerOn: boolean;
   styles: string;
+  handleReset: () => void;
 }
 
