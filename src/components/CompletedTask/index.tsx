@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NewTaskValueState } from '../../store/ClockComponentStore';
-import { StyledCreatedTasks } from './styles';
+import { PhaseDescriptionStyled, StyledCreatedTasks } from './styles';
 const CompletedTask = () => {
   const phasesCompleted = useSelector(NewTaskValueState);
   console.log('🚀 ~ file: CompletedTask.tsx:6 ~ CompletedTask ~ phasesCompleted:', phasesCompleted);
@@ -9,7 +9,7 @@ const CompletedTask = () => {
     <div>
       {phasesCompleted.map((phase) => (
         <StyledCreatedTasks>
-          <div>{phase?.description}</div>
+          <PhaseDescriptionStyled>{phase?.description}</PhaseDescriptionStyled>
           <div>{phase?.qty}</div>
         </StyledCreatedTasks>
       ))}
@@ -18,4 +18,5 @@ const CompletedTask = () => {
 };
 
 export default CompletedTask;
+
 

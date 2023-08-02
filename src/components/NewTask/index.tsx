@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
 import {
+  ContentContainer,
   StyledButton,
   StyledNewTaskArea,
   StyledStimatedTime,
   StyledStimatedTimeButton,
-  StyledTask,
 } from './styles';
 import { useDispatch } from 'react-redux';
 import { changeStep, saveNewTaskValues } from '../../store/ClockComponentStore';
 const NewTask = () => {
   const [pomodoroCounter, setPomodoroCounter] = useState(0);
   const [taskMessagge, setTaskMessage] = useState('');
+  const [emptyFiedls, setEmptyFiedls] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = (item: number, add: string) => {
@@ -23,30 +24,36 @@ const NewTask = () => {
   };
 
   const handleSave = () => {
-    dispatch(changeStep('done' as any));
-    dispatch(saveNewTaskValues(taskMessagge as any));
+    if (taskMessagge !== '' && pomodoroCounter !== 0) {
+      dispatch(changeStep('done' as any));
+      dispatch(saveNewTaskValues(taskMessagge as any));
+    } else {
+      setEmptyFiedls(true);
+    }
   };
 
   const handleChange = (e) => {};
-  console.log(taskMessagge, 'taskMessagge');
   return (
-    <StyledTask>
-      <div className="content-container">
+    <ContentContainer style={{ border: emptyFiedls && '5px solid red' }}>
+      <div className="styled-text-area">
         <StyledNewTaskArea onChange={(e) => setTaskMessage(e.target.value)}></StyledNewTaskArea>
-        <div>
-          <StyledStimatedTime>
-            <div className="counter">{pomodoroCounter}</div>
-            <StyledStimatedTimeButton onClick={() => handleClick(1, 'add')}>
-              +
-            </StyledStimatedTimeButton>
-            <StyledStimatedTimeButton onClick={() => handleClick(1, 'decrease')}>
-              -
-            </StyledStimatedTimeButton>
-          </StyledStimatedTime>
-        </div>
-        <StyledButton onClick={() => handleSave()}>Save</StyledButton>
       </div>
-    </StyledTask>
+      <div className="controls-panel">
+        {emptyFiedls ? <span>Please complete all fields</span> : <span>Est Pomodoros</span>}
+        <StyledStimatedTime>
+          <div className="counter">{pomodoroCounter}</div>
+          <StyledStimatedTimeButton onClick={() => handleClick(1, 'add')}>
+            +
+          </StyledStimatedTimeButton>
+          <StyledStimatedTimeButton onClick={() => handleClick(1, 'decrease')}>
+            -
+          </StyledStimatedTimeButton>
+        </StyledStimatedTime>
+      </div>
+      <StyledButton>
+        <button onClick={() => handleSave()}>Save</button>
+      </StyledButton>
+    </ContentContainer>
   );
 };
 

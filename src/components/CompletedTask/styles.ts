@@ -13,6 +13,11 @@ export const StyledCreatedTasks = styled.div`
   box-shadow: none;
   transform: translateY(2px);
   border-left: 6px solid rgb(34, 34, 34);
+`;
+
+export const PhaseDescriptionStyled = styled.div`
   padding: 30px;
 `;
+
+
 

@@ -1,14 +1,36 @@
 import styled from '@emotion/styled';
 
-export const StyledTask = styled.div`
-  width: 350px;
-  padding: 50px;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: white;
-  border-radius: 8px;
-  text-align: left;
   margin-top: 12px;
+  border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
-  animation: 0.1s ease-in-out 0s 1 normal none running expand;
+  & input,
+  div,
+  button {
+    border-radius: 8px;
+    border: none;
+  }
+
+  & input:focus {
+    border: 'none';
+  }
+
+  & .styled-text-area {
+    display: flex;
+    flex: 1;
+    min-height: 6rem;
+  }
+  & .controls-panel {
+    flex: 1;
+    & span {
+      font-weight: bold;
+      padding: 5px 0 15px 5px;
+    }
+  }
 `;
 
 export const StyledNewTaskArea = styled.input`
@@ -18,22 +40,43 @@ export const StyledNewTaskArea = styled.input`
 `;
 
 export const StyledStimatedTimeButton = styled.button`
-  width: 100px;
-  height: 50px;
+  width: 24px;
+  height: 24px;
   background-color: antiquewhite;
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const StyledStimatedTime = styled.div`
   display: flex;
   & .counter {
-    width: 150px;
+    width: 55px;
     background-color: lightgrey;
+    display: flex;
+    justify-content: center;
   }
 `;
 
-export const StyledButton = styled.button`
-  height: 36px;
-  width: 70px;
-  color: #222222;
+export const StyledButton = styled.div`
+  height: 3rem;
+  background-color: #efefef;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 5px;
+  & button {
+    /* flex: 1; */
+    height: 36px;
+    width: 70px;
+    background-color: #222222;
+    color: white;
+    justify-content: end;
+    margin-right: 15px;
+}
+  }
 `;
+
+
 

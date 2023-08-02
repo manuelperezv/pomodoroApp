@@ -7,7 +7,6 @@ export const MainComponent = styled.div`
 
 export const ClockContainer = styled.div`
   margin-top: 40px;
-  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -15,11 +14,17 @@ export const ClockContainer = styled.div`
   padding-top: 70px;
   & .clockContainer__container {
     background-color: rgba(255, 255, 255, 0.1);
-    height: 450px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 20px;
+    padding: 20px;
+    margin-top: 20px;
+    @media (min-width: 600px) {
+      min-width: 450px;
+      height: 450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+    }
   }
 `;
 
@@ -41,7 +46,6 @@ export const TimePeriodsContainer = styled.div`
 export const FormattedTime = styled.span`
   color: #fff;
   font-size: 7rem;
-  padding: 1rem 6rem;
 `;
 
 export const MainButtonContainer = styled.div`
