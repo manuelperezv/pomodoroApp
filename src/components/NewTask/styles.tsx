@@ -30,6 +30,9 @@ export const ContentContainer = styled.div`
       font-weight: bold;
       padding: 5px 0 15px 5px;
     }
+    & .complete-fields {
+      color: red;
+    }
   }
 `;
 

@@ -5,15 +5,18 @@ import type { NextPage } from 'next';
 import { addTask } from '../../store/ClockComponentStore';
 import { useDispatch, useSelector } from 'react-redux';
 
-const MainButtonComponent = ({ handleReset, timerOn, styles }: ButtonComponentProps) => {
-  //   const reduxClockData = useAppSelector((state) => state.clock.clockData);
-  //   console.log(reduxClockData);
+const MainButtonComponent = ({
+  handleReset,
+  timerOn,
+  styles,
+  handleClock,
+}: ButtonComponentProps) => {
   const clockState = useSelector(addTask);
   const dispatch = useDispatch();
   return (
     <>
       <MainButtonContainer>
-        <button onClick={handleReset} className={styles}>
+        <button className={styles} onClick={handleClock}>
           {!timerOn ? 'Play' : 'Pause'}
         </button>
         <button onClick={handleReset} className={styles}>

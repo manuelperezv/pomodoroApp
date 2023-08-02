@@ -39,7 +39,11 @@ const NewTask = () => {
         <StyledNewTaskArea onChange={(e) => setTaskMessage(e.target.value)}></StyledNewTaskArea>
       </div>
       <div className="controls-panel">
-        {emptyFiedls ? <span>Please complete all fields</span> : <span>Est Pomodoros</span>}
+        {emptyFiedls ? (
+          <span className={emptyFiedls && 'complete-fields'}>Please complete all fields</span>
+        ) : (
+          <span>Est Pomodoros</span>
+        )}
         <StyledStimatedTime>
           <div className="counter">{pomodoroCounter}</div>
           <StyledStimatedTimeButton onClick={() => handleClick(1, 'add')}>
