@@ -32,6 +32,10 @@ const NewTask = () => {
     }
   };
 
+  const handleCancel = () => {
+    dispatch(changeStep('done' as any));
+  };
+
   const handleChange = (e) => {};
   return (
     <ContentContainer style={{ border: emptyFiedls && '5px solid red' }}>
@@ -55,6 +59,7 @@ const NewTask = () => {
         </StyledStimatedTime>
       </div>
       <StyledButton>
+        <button onClick={() => handleCancel()}>Cancel</button>
         <button onClick={() => handleSave()}>Save</button>
       </StyledButton>
     </ContentContainer>

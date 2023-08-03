@@ -31,42 +31,25 @@ export const ClockContainer = styled.div`
 export const TimePeriodsContainer = styled.div`
   display: flex;
   justify-content: center;
+  & :hover {
+    border: 2px solid lightgray;
+  }
   & button {
     margin-left: 8px;
     border: none;
     background-color: unset;
     font-size: 15px;
     color: white;
-    &:focus {
-      background: #f6f1f13d;
-    }
+  }
+  & button:focus {
+    background: #f6f1f13d;
+    font-size: 15px;
   }
 `;
 
 export const FormattedTime = styled.span`
   color: #fff;
   font-size: 7rem;
-`;
-
-export const MainButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  & button {
-    cursor: pointer;
-    border: medium none;
-    border-radius: 4px;
-    margin: 10px;
-    box-shadow: rgb(235, 235, 235) 0px 6px 0px;
-    font-size: 22px;
-    height: 55px;
-    color: rgb(186, 73, 73);
-    font-weight: bold;
-    width: 200px;
-    background-color: white;
-    transition: color 0.5s ease-in-out 0s;
-  }
 `;
 
 export const ProgressContainer = styled.progress`
@@ -87,7 +70,6 @@ export const StyledAddNewTaskButton = styled.button`
   box-sizing: border-box;
   border: 2px dashed rgba(255, 255, 255, 0.4);
   &:hover {
-    background-color: rgba(36, 35, 35, 0.1);
-    border: 'solid 2px red !important';
+    font-size: 20px;
   }
 `;

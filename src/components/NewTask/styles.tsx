@@ -70,7 +70,6 @@ export const StyledButton = styled.div`
   align-items: center;
   padding: 5px;
   & button {
-    /* flex: 1; */
     height: 36px;
     width: 70px;
     background-color: #222222;

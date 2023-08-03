@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainButtonContainer } from '../ClockComponent/styles';
+import { MainButtonContainerWrapper } from './styles';
 import { ButtonComponentProps } from '../../interfaces';
 import type { NextPage } from 'next';
 import { addTask } from '../../store/ClockComponentStore';
@@ -15,17 +15,16 @@ const MainButtonComponent = ({
   const dispatch = useDispatch();
   return (
     <>
-      <MainButtonContainer>
+      <MainButtonContainerWrapper>
         <button className={styles} onClick={handleClock}>
           {!timerOn ? 'Play' : 'Pause'}
         </button>
         <button onClick={handleReset} className={styles}>
           Reset
         </button>
-      </MainButtonContainer>
+      </MainButtonContainerWrapper>
     </>
   );
 };
 
 export default MainButtonComponent;
-
