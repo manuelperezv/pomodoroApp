@@ -8,7 +8,7 @@ import {
   StyledAddNewTaskButton,
 } from './styles';
 // import { useAppDispatch } from '../../store/store';
-import MainButtonComponent from '../MainButtonComponent/MainButtonComponent';
+import MainButtonComponent from '../MainButtonComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   PhaseCounterState,

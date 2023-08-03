@@ -40,7 +40,7 @@ export const ClockComponentSlice = createSlice({
       state.phaseCounter = action.payload;
     },
     saveNewTaskValues: (state: any, action: PayloadAction) => {
-      state.newTaskValues.push({ description: action.payload });
+      state.newTaskValues.push({ description: action.payload, qty: action.payload });
     },
   },
 });
