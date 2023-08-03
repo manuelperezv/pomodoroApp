@@ -50,7 +50,7 @@ const ClockComponent = () => {
 
   /// redux
 
-  const clockState = useSelector(SelectClockState);
+  //   const clockState = useSelector(SelectClockState);
   const phaseState = useSelector(PhaseCounterState);
 
   const dispatch = useDispatch();
@@ -102,86 +102,84 @@ const ClockComponent = () => {
     setTimerOn(!timerOn);
   };
 
-        const handleReset = () => {
-          if (getCurrentSession === 'short') {
-            setDisplayTime(sessionDuration.short);
-          } else if (getCurrentSession === 'medium') {
-            setDisplayTime(sessionDuration.medium);
-          } else if (getCurrentSession === 'large') {
-            setDisplayTime(sessionDuration.large);
-          }
-          clearInterval(intervalTimerId);
-          setTimerOn(false);
-        };
+  const handleReset = () => {
+    if (getCurrentSession === 'short') {
+      setDisplayTime(sessionDuration.short);
+    } else if (getCurrentSession === 'medium') {
+      setDisplayTime(sessionDuration.medium);
+    } else if (getCurrentSession === 'large') {
+      setDisplayTime(sessionDuration.large);
+    }
+    clearInterval(intervalTimerId);
+    setTimerOn(false);
+  };
 
-        const setBackgroundColor = () => {
-          if (displayTime <= 300) {
-            return '#2C7476';
-          } else if (displayTime >= 300 && displayTime <= 900) {
-            return '#2D5D84';
-          } else if (displayTime >= 900 && displayTime <= 1500) {
-            return '#ba4949';
-          }
-        };
+  const setBackgroundColor = () => {
+    if (displayTime <= 300) {
+      return '#2C7476';
+    } else if (displayTime >= 300 && displayTime <= 900) {
+      return '#2D5D84';
+    } else if (displayTime >= 900 && displayTime <= 1500) {
+      return '#ba4949';
+    }
+  };
 
-        const progressBarValue = displayTime <= 300 ? 5 : displayTime <= 900 ? 15 : 25;
+  const progressBarValue = displayTime <= 300 ? 5 : displayTime <= 900 ? 15 : 25;
 
-        useEffect(() => {
-          setCurrentPhaseState(phaseState);
-        }, [phaseState]);
+  useEffect(() => {
+    setCurrentPhaseState(phaseState);
+  }, [phaseState]);
 
-        return (
-          <ClockContainer
-            style={{
-              backgroundColor: setBackgroundColor(),
-            }}
-          >
-            <MainComponent>
-              <div className="clockContainer__container">
-                <ProgressContainer value={displayTime / 60} max={progressBarValue}>
-                  {displayTime}
-                </ProgressContainer>
-                <TimePeriodsContainer>
-                  <button onClick={() => handleSessionDuration(sessionDuration.large)}>
-                    Pomodoro
-                  </button>
-                  <button
-                    className="timePeriodsContainer__buttons"
-                    onClick={() => handleSessionDuration(sessionDuration.short)}
-                  >
-                    Short Break
-                  </button>
-                  <button
-                    className="timePeriodsContainer__buttons"
-                    onClick={() => handleSessionDuration(sessionDuration.medium)}
-                  >
-                    Long Break
-                  </button>
-                </TimePeriodsContainer>
-                <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
-                <MainButtonComponent
-                  handleClock={handleClock}
-                  styles="MainButtonContainer__button"
-                  timerOn={timerOn}
-                  handleReset={handleReset}
-                />
-              </div>
-              {phaseState === 'editing' && <NewTask />}
-              {phaseState === 'done' && <CompletedTask />}
-              <div>
-                {currentPhaseState === StatePhases.editing ||
-                  (StatePhases.done && (
-                    <StyledAddNewTaskButton
-                      className="addTaskButton"
-                      onClick={() => dispatch(changeStep('editing' as any))}
-                    >
-                      + <span style={{ fontSize: '17px' }}>agregar tarea</span>
-                    </StyledAddNewTaskButton>
-                  ))}
-              </div>
-            </MainComponent>
-          </ClockContainer>
-        );
+  return (
+    <ClockContainer
+      style={{
+        backgroundColor: setBackgroundColor(),
+      }}
+    >
+      <MainComponent>
+        <div className="clockContainer__container">
+          <ProgressContainer value={displayTime / 60} max={progressBarValue}>
+            {displayTime}
+          </ProgressContainer>
+          <TimePeriodsContainer>
+            <button onClick={() => handleSessionDuration(sessionDuration.large)}>Pomodoro</button>
+            <button
+              className="timePeriodsContainer__buttons"
+              onClick={() => handleSessionDuration(sessionDuration.short)}
+            >
+              Short Break
+            </button>
+            <button
+              className="timePeriodsContainer__buttons"
+              onClick={() => handleSessionDuration(sessionDuration.medium)}
+            >
+              Long Break
+            </button>
+          </TimePeriodsContainer>
+          <FormattedTime ref={getRef}>{formatHours(displayTime)}</FormattedTime>
+          <MainButtonComponent
+            handleClock={handleClock}
+            styles="MainButtonContainer__button"
+            timerOn={timerOn}
+            handleReset={handleReset}
+          />
+        </div>
+        {phaseState === 'editing' && <NewTask />}
+        {phaseState === 'done' && <CompletedTask />}
+        <div>
+          {currentPhaseState === StatePhases.editing ||
+            (StatePhases.done && (
+              <StyledAddNewTaskButton
+                className="addTaskButton"
+                onClick={() => dispatch(changeStep('editing' as any))}
+              >
+                + <span style={{ fontSize: '17px' }}>agregar tarea</span>
+              </StyledAddNewTaskButton>
+            ))}
+        </div>
+      </MainComponent>
+    </ClockContainer>
+  );
 };
 
 export default ClockComponent;
