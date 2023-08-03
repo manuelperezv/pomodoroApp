@@ -4,11 +4,10 @@ import { NewTaskValueState } from '../../store/ClockComponentStore';
 import { PhaseDescriptionStyled, StyledCreatedTasks } from './styles';
 const CompletedTask = () => {
   const phasesCompleted = useSelector(NewTaskValueState);
-  console.log('🚀 ~ file: CompletedTask.tsx:6 ~ CompletedTask ~ phasesCompleted:', phasesCompleted);
   return (
     <div>
-      {phasesCompleted.map((phase) => (
-        <StyledCreatedTasks>
+      {phasesCompleted.map((phase, index) => (
+        <StyledCreatedTasks key={index}>
           <PhaseDescriptionStyled>{phase?.description}</PhaseDescriptionStyled>
           <div>{phase?.qty}</div>
         </StyledCreatedTasks>
