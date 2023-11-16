@@ -5,7 +5,6 @@ import { PhaseDescriptionStyled, StyledCreatedTasks } from './styles';
 const CompletedTask = () => {
   const phasesCompleted = useSelector(NewTaskValueState);
   const SelectClockS = useSelector(SelectClockState);
-  console.log('🚀 ~ file: index.tsx:7 ~ CompletedTask ~ SelectClockS:', SelectClockS);
   return (
     <div>
       {phasesCompleted.map((phase, index) => (
